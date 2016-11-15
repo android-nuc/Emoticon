@@ -8,3 +8,17 @@
 - 将表情包的表情发送到QQ和微信
 
 - 云同步
+
+## 实现
+
+- Java & Kotlin
+
+- MVVM
+
+- RxJava
+
+- Retrofit 
+
+- Glide
+
+- Gson
