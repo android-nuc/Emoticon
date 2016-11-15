@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+/**
+ * 获取当前时间
+ * @return 当前时间
+ */
 def currentTime() {
     return new Date().format("yyyy_MM_dd HH:mm:ss", TimeZone.getTimeZone("GMT+8"))
 }
@@ -8,25 +12,34 @@ def currentTime() {
 def app_name_release = "Emoticon"
 def debug_suffix = "debug"
 
+def _compileSdkVersion = 24
+def _buildToolsVersion = "24.0.3"
+def _applicationId = "com.juhezi.emoticon"
+def _minSdkVersion = 15
+def _targetSdkVersion = 24
+def _versionCode = 1
+def _versionName = "1.0"
+
+
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion _compileSdkVersion
+    buildToolsVersion _buildToolsVersion
     defaultConfig {
-        applicationId "com.juhezi.emoticon"
-        minSdkVersion 15
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        applicationId _applicationId
+        minSdkVersion _minSdkVersion
+        targetSdkVersion _targetSdkVersion
+        versionCode _versionCode
+        versionName _versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue("string","app_name",app_name_release)
+            resValue("string", "app_name", app_name_release)
         }
         debug {
-            resValue("string","app_name","${app_name_release}_${debug_suffix}_${currentTime()}")
+            resValue("string", "app_name", "${app_name_release}_${debug_suffix}_${currentTime()}")
         }
     }
     sourceSets {
@@ -39,8 +52,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile rootProject.ext.libSupportAppcomponent
+    compile rootProject.ext.libSupportDesign
+    compile rootProject.ext.libSupportRecyclerView
+    compile rootProject.ext.libSupportCardView
+    compile rootProject.ext.libSupportV4
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {
