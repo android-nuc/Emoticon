@@ -1,6 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def currentTime() {
+    return new Date().format("yyyy_MM_dd HH:mm:ss", TimeZone.getTimeZone("GMT+8"))
+}
+
+def app_name_release = "Emoticon"
+def debug_suffix = "debug"
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
@@ -16,6 +23,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue("string","app_name",app_name_release)
+        }
+        debug {
+            resValue("string","app_name","${app_name_release}_${debug_suffix}_${currentTime()}")
         }
     }
     sourceSets {
