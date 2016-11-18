@@ -40,7 +40,8 @@
                 android:layout_height="?actionBarSize"
                 android:layout_alignParentLeft="true"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/colorAccent"></android.support.design.widget.TabLayout>
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@android:color/white"></android.support.design.widget.TabLayout>
 
             <ImageView
                 android:id="@+id/iv_act_main_more_tabs"

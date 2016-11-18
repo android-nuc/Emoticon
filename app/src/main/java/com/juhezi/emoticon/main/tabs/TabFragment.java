@@ -9,6 +9,7 @@ import com.juhezi.emoticon.abs.AbsViewModel;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -33,9 +34,9 @@ public abstract class TabFragment extends AbsFragment<AbsViewModel<AbsPresenter>
 
     public static class Builder {
 
-        private static Map<String, AbsViewModel> mViewModelPool = new HashMap<>();
-        private static Map<String, AbsPresenter> mPresenterPool = new HashMap<>();
-        private static Map<String, TabFragment> mFragmentPool = new HashMap<>();
+        private static Map<String, AbsViewModel> mViewModelPool = new LinkedHashMap<>();
+        private static Map<String, AbsPresenter> mPresenterPool = new LinkedHashMap<>();
+        private static Map<String, TabFragment> mFragmentPool = new LinkedHashMap<>();
 
         public static Map<String, AbsViewModel> getViewModelPool() {
             return mViewModelPool;

@@ -1,5 +1,6 @@
 package com.juhezi.emoticon.main;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import com.juhezi.emoticon.main.tabs.pretendStrong.PretendViewModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private VPTLAdapter mAdapter;
+    private TabFragment.Builder mBuilder = new TabFragment.Builder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,42 +69,51 @@ public class MainActivity extends AppCompatActivity {
     private void initTabLayout() {
         mTabLayout = (TabLayout) findViewById(R.id.tl_act_main_tabs);
         mViewPager = (ViewPager) findViewById(R.id.vp_act_main);
-        new TabFragment.Builder()
-                .setTabName(getString(R.string.pretend_strong))
-                .setContext(this)
-                .setFragmentClazz(PretendFragment.class)
-                .setPresenterClazz(PretendPresenter.class)
-                .setViewModelClazz(PretendViewModel.class)
-                .build();
-
-        new TabFragment.Builder()
-                .setTabName(getString(R.string.lovely))
-                .setContext(this)
-                .setFragmentClazz(LovelyFragment.class)
-                .setPresenterClazz(LovelyPresenter.class)
-                .setViewModelClazz(LovelyViewModel.class)
-                .build();
-
-        new TabFragment.Builder()
-                .setTabName(getString(R.string.gif))
-                .setContext(this)
-                .setFragmentClazz(GifFragment.class)
-                .setPresenterClazz(GifPresenter.class)
-                .setViewModelClazz(GifViewModel.class)
-                .build();
-
-        new TabFragment.Builder()
-                .setTabName(getString(R.string.fight))
-                .setContext(this)
-                .setFragmentClazz(FightFragment.class)
-                .setPresenterClazz(FightPresenter.class)
-                .setViewModelClazz(FightViewModel.class)
-                .build();
+        addTab(this, getString(R.string.pretend_strong),
+                PretendFragment.class,
+                PretendPresenter.class,
+                PretendViewModel.class);
+        addTab(this, getString(R.string.lovely),
+                LovelyFragment.class,
+                LovelyPresenter.class,
+                LovelyViewModel.class);
+        addTab(this, getString(R.string.gif),
+                GifFragment.class,
+                GifPresenter.class,
+                GifViewModel.class);
+        addTab(this, getString(R.string.fight),
+                FightFragment.class,
+                FightPresenter.class,
+                FightViewModel.class);
         mAdapter = new VPTLAdapter(new ArrayList<TabFragment>(
                 TabFragment.Builder.getFragmentPool().values()),
                 getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    /**
+     * 添加Tab
+     *
+     * @param context
+     * @param tabName
+     * @param fragClazz
+     * @param preClazz
+     * @param vimoClazz
+     */
+    public TabFragment addTab(Context context, String tabName,
+                              Class fragClazz,
+                              Class preClazz,
+                              Class vimoClazz) {
+        if (mBuilder == null) {
+            return null;
+        }
+        return mBuilder.setTabName(tabName)
+                .setContext(context)
+                .setFragmentClazz(fragClazz)
+                .setPresenterClazz(preClazz)
+                .setViewModelClazz(vimoClazz)
+                .build();
     }
 
     @Override
@@ -112,19 +124,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /*private void initFragment() {
-        mFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.rl_main_frag);
-        if (mFragment == null) {
-            mFragment = MainFragment.getInstance();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.rl_main_frag, mFragment)
-                    .commit();
-        }
-        mPresenter = new MainPresenter(mFragment);
-        AbsViewModel viewModel = new AbsViewModel(getApplicationContext(), mPresenter);
-        mFragment.setViewModel(viewModel);
-    }*/
-
 }
