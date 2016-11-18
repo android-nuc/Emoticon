@@ -12,7 +12,7 @@ interface MainContract {
 
     }
 
-    interface View : BaseView<Presenter> {
+    interface View<T> : BaseView<T> {
 
     }
 

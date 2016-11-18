@@ -1,2 +1,7 @@
 <resources>
+    <string name="app_name_title">Emoticon</string>
+    <string name="pretend_strong">装X</string>
+    <string name="gif">gif</string>
+    <string name="lovely">可爱</string>
+    <string name="fight">战斗</string>
 </resources>
