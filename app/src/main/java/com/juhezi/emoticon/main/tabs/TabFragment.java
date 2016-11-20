@@ -1,13 +1,16 @@
 package com.juhezi.emoticon.main.tabs;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.juhezi.emoticon.R;
 import com.juhezi.emoticon.abs.AbsFragment;
 import com.juhezi.emoticon.abs.AbsPresenter;
 import com.juhezi.emoticon.abs.AbsViewModel;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -65,17 +68,17 @@ public abstract class TabFragment extends AbsFragment<AbsViewModel<AbsPresenter>
             return this;
         }
 
-        public Builder setViewModelClazz(Class viewModelClazz) {
+        public Builder setViewModelClazz(Class<? extends AbsViewModel> viewModelClazz) {
             this.viewModelClazz = viewModelClazz;
             return this;
         }
 
-        public Builder setPresenterClazz(Class presenterClazz) {
+        public Builder setPresenterClazz(Class<? extends AbsPresenter> presenterClazz) {
             this.presenterClazz = presenterClazz;
             return this;
         }
 
-        public Builder setFragmentClazz(Class fragmentClazz) {
+        public Builder setFragmentClazz(Class<? extends TabFragment> fragmentClazz) {
             this.fragmentClazz = fragmentClazz;
             return this;
         }
@@ -87,9 +90,15 @@ public abstract class TabFragment extends AbsFragment<AbsViewModel<AbsPresenter>
 
         public TabFragment build() {
             try {
-                Constructor<TabFragment> constructorFrag = fragmentClazz.getDeclaredConstructor(String.class);
+                //调用构造方法
+                /*Constructor<TabFragment> constructorFrag = fragmentClazz.getDeclaredConstructor(String.class);
                 constructorFrag.setAccessible(true);    //取消访问检查
-                mFragment = constructorFrag.newInstance(tabName);
+                mFragment = constructorFrag.newInstance(tabName);*/
+
+                //调用静态方法
+                Method getInstanceMethod = fragmentClazz.getMethod(context.getString(R.string.get_instance), String.class);
+                mFragment = (TabFragment) getInstanceMethod.invoke(null, tabName);
+
                 mFragmentPool.put(tabName, mFragment);
                 Constructor<AbsPresenter> constructorPre = (Constructor<AbsPresenter>) presenterClazz.getDeclaredConstructors()[0];
                 mPresenter = constructorPre.newInstance(mFragment);

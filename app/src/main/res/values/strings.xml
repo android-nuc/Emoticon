@@ -4,4 +4,5 @@
     <string name="gif">gif</string>
     <string name="lovely">可爱</string>
     <string name="fight">战斗</string>
+    <string name="get_instance">getInstance</string>
 </resources>
