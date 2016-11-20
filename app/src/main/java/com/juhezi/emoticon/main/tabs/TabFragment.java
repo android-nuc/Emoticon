@@ -7,6 +7,7 @@ import com.juhezi.emoticon.R;
 import com.juhezi.emoticon.abs.AbsFragment;
 import com.juhezi.emoticon.abs.AbsPresenter;
 import com.juhezi.emoticon.abs.AbsViewModel;
+import com.juhezi.emoticon.main.tabs.dynamic.DynamicFragment;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -90,14 +91,18 @@ public abstract class TabFragment extends AbsFragment<AbsViewModel<AbsPresenter>
 
         public TabFragment build() {
             try {
-                //调用构造方法
-                /*Constructor<TabFragment> constructorFrag = fragmentClazz.getDeclaredConstructor(String.class);
-                constructorFrag.setAccessible(true);    //取消访问检查
-                mFragment = constructorFrag.newInstance(tabName);*/
 
-                //调用静态方法
-                Method getInstanceMethod = fragmentClazz.getMethod(context.getString(R.string.get_instance), String.class);
-                mFragment = (TabFragment) getInstanceMethod.invoke(null, tabName);
+                if (fragmentClazz.getName().equals(DynamicFragment.class.getName())) {  //动态的Fragment
+                    //调用构造方法
+                    Constructor<TabFragment> constructorFrag = fragmentClazz.getDeclaredConstructor(String.class);
+                    constructorFrag.setAccessible(true);    //取消访问检查
+                    mFragment = constructorFrag.newInstance(tabName);
+                } else {
+                    //调用静态方法
+                    Method getInstanceMethod = fragmentClazz.getMethod(context.getString(R.string.get_instance), String.class);
+                    mFragment = (TabFragment) getInstanceMethod.invoke(null, tabName);
+                }
+
 
                 mFragmentPool.put(tabName, mFragment);
                 Constructor<AbsPresenter> constructorPre = (Constructor<AbsPresenter>) presenterClazz.getDeclaredConstructors()[0];

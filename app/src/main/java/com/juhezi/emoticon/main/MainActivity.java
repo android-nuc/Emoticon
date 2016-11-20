@@ -1,7 +1,9 @@
 package com.juhezi.emoticon.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,11 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.LoginFilter;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.juhezi.emoticon.R;
 import com.juhezi.emoticon.abs.AbsPresenter;
 import com.juhezi.emoticon.abs.AbsViewModel;
 import com.juhezi.emoticon.main.tabs.TabFragment;
+import com.juhezi.emoticon.main.tabs.dynamic.DynamicFragment;
+import com.juhezi.emoticon.main.tabs.dynamic.DynamicPresenter;
+import com.juhezi.emoticon.main.tabs.dynamic.DynamicViewModel;
 import com.juhezi.emoticon.main.tabs.fight.FightFragment;
 import com.juhezi.emoticon.main.tabs.fight.FightPresenter;
 import com.juhezi.emoticon.main.tabs.fight.FightViewModel;
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private FloatingActionButton mFabAdd;
 
     private VPTLAdapter mAdapter;
     private TabFragment.Builder mBuilder = new TabFragment.Builder();
@@ -58,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //这里要进行数据还原
 
+        Log.i(TAG, "onCreate: ??");
+        
         setContentView(R.layout.act_main);
 
         initActionBar();
@@ -66,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         initDrawerlayout();
 
+        initView();
+
+        initEvent();
     }
 
     private void initDrawerlayout() {
@@ -84,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 配置Tablayout和Viewpager，太丑需要重构
+     * 配置Tablayout和Viewpager，这里要从Model中获取Tab的信息，并将其添加到List中，
      */
     private void initTabLayout() {
         mTabLayout = (TabLayout) findViewById(R.id.tl_act_main_tabs);
@@ -105,11 +117,33 @@ public class MainActivity extends AppCompatActivity {
                 FightFragment.class,
                 FightPresenter.class,
                 FightViewModel.class);
+        addTab(this, "刘看山",
+                DynamicFragment.class,
+                DynamicPresenter.class,
+                DynamicViewModel.class);
+
         mAdapter = new VPTLAdapter(new ArrayList<TabFragment>(
                 TabFragment.Builder.getFragmentPool().values()),
                 getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void initView() {
+        mFabAdd = (FloatingActionButton) findViewById(R.id.fab_frag_main_add);
+    }
+
+    private void initEvent() {
+        mFabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*addTab(MainActivity.this, "Hello",
+                        DynamicFragment.class,
+                        DynamicPresenter.class,
+                        DynamicViewModel.class);
+                MainActivity.this.recreate();*/
+            }
+        });
     }
 
     /**
