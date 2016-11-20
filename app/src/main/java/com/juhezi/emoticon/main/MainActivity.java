@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         //这里要进行数据还原
 
         Log.i(TAG, "onCreate: ??");
-        
+
         setContentView(R.layout.act_main);
 
         initActionBar();
@@ -121,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
                 DynamicFragment.class,
                 DynamicPresenter.class,
                 DynamicViewModel.class);
+        addTab(this, "刘看山1",
+                DynamicFragment.class,
+                DynamicPresenter.class,
+                DynamicViewModel.class);
+        addTab(this, "刘看山2",
+                DynamicFragment.class,
+                DynamicPresenter.class,
+                DynamicViewModel.class);
 
         mAdapter = new VPTLAdapter(new ArrayList<TabFragment>(
                 TabFragment.Builder.getFragmentPool().values()),
@@ -137,11 +145,13 @@ public class MainActivity extends AppCompatActivity {
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*addTab(MainActivity.this, "Hello",
+                TabFragment fragment = addTab(MainActivity.this, "Hello",
                         DynamicFragment.class,
                         DynamicPresenter.class,
                         DynamicViewModel.class);
-                MainActivity.this.recreate();*/
+                mAdapter.setFragments(new ArrayList<TabFragment>(
+                        TabFragment.Builder.getFragmentPool().values()));
+
             }
         });
     }

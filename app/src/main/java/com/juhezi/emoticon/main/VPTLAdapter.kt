@@ -16,6 +16,12 @@ import java.util.*
 class VPTLAdapter(var mFragments: ArrayList<TabFragment>, var fragmentManager: FragmentManager)
     : FragmentStatePagerAdapter(fragmentManager) {
 
+    fun setFragments(fragment: ArrayList<TabFragment>) {
+        this.mFragments = fragment
+
+        notifyDataSetChanged()
+    }
+
     override fun getCount(): Int {
         return mFragments.count()
     }
@@ -30,4 +36,6 @@ class VPTLAdapter(var mFragments: ArrayList<TabFragment>, var fragmentManager: F
     override fun getPageTitle(position: Int): CharSequence {
         return mFragments[position].tabName
     }
+
+
 }
