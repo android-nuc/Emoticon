@@ -38,6 +38,8 @@ import com.juhezi.emoticon.main.tabs.lovely.LovelyViewModel;
 import com.juhezi.emoticon.main.tabs.pretendStrong.PretendFragment;
 import com.juhezi.emoticon.main.tabs.pretendStrong.PretendPresenter;
 import com.juhezi.emoticon.main.tabs.pretendStrong.PretendViewModel;
+import com.juhezi.emoticon.util.TabNameNotAvailableException;
+import com.juhezi.emoticon.util.TabNameRepeatableException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -169,15 +171,26 @@ public class MainActivity extends AppCompatActivity {
                               Class<? extends TabFragment> fragClazz,
                               Class<? extends AbsPresenter> preClazz,
                               Class<? extends AbsViewModel> vimoClazz) {
+        TabFragment fragment = null;
         if (mBuilder == null) {
-            return null;
+            return fragment;
         }
-        return mBuilder.setTabName(tabName)
-                .setContext(context)
-                .setFragmentClazz(fragClazz)
-                .setPresenterClazz(preClazz)
-                .setViewModelClazz(vimoClazz)
-                .build();
+        try {
+            fragment = mBuilder.setTabName(tabName)
+                    .setContext(context)
+                    .setFragmentClazz(fragClazz)
+                    .setPresenterClazz(preClazz)
+                    .setViewModelClazz(vimoClazz)
+                    .build();
+        } catch (TabNameNotAvailableException e) {
+            Log.i(TAG, "TabNameNotAvailableException: " + e.getMessage());
+            e.printStackTrace();
+        } catch (TabNameRepeatableException e) {
+            Log.i(TAG, "TabNameRepeatableException: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            return fragment;
+        }
     }
 
     @Override

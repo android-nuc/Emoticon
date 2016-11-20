@@ -8,6 +8,8 @@ import com.juhezi.emoticon.abs.AbsFragment;
 import com.juhezi.emoticon.abs.AbsPresenter;
 import com.juhezi.emoticon.abs.AbsViewModel;
 import com.juhezi.emoticon.main.tabs.dynamic.DynamicFragment;
+import com.juhezi.emoticon.util.TabNameNotAvailableException;
+import com.juhezi.emoticon.util.TabNameRepeatableException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -89,9 +91,18 @@ public abstract class TabFragment extends AbsFragment<AbsViewModel<AbsPresenter>
             return this;
         }
 
-        public TabFragment build() {
-            try {
+        public TabFragment build() throws TabNameNotAvailableException, TabNameRepeatableException {
 
+            if (tabName == null || tabName.trim().equals("")) {     //Tab名字不合法
+                throw new TabNameNotAvailableException();
+            }
+
+            if (mFragmentPool.containsKey(tabName)) {   // Tab名称重复
+                throw new TabNameRepeatableException();
+            }
+
+
+            try {
                 if (fragmentClazz.getName().equals(DynamicFragment.class.getName())) {  //动态的Fragment
                     //调用构造方法
                     Constructor<TabFragment> constructorFrag = fragmentClazz.getDeclaredConstructor(String.class);
@@ -102,7 +113,6 @@ public abstract class TabFragment extends AbsFragment<AbsViewModel<AbsPresenter>
                     Method getInstanceMethod = fragmentClazz.getMethod(context.getString(R.string.get_instance), String.class);
                     mFragment = (TabFragment) getInstanceMethod.invoke(null, tabName);
                 }
-
 
                 mFragmentPool.put(tabName, mFragment);
                 Constructor<AbsPresenter> constructorPre = (Constructor<AbsPresenter>) presenterClazz.getDeclaredConstructors()[0];
