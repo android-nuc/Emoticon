@@ -5,4 +5,7 @@
     <string name="lovely">可爱</string>
     <string name="fight">战斗</string>
     <string name="get_instance">getInstance</string>
+    <string name="setting">设置</string>
+    <string name="tab_name_setting">标签栏设置</string>
+    <string name="user_setting">账户设置</string>
 </resources>

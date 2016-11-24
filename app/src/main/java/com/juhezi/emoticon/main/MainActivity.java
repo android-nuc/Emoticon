@@ -3,6 +3,7 @@ package com.juhezi.emoticon.main;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private FloatingActionButton mFabAdd;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     private VPTLAdapter mAdapter;
     private TabFragment.Builder mBuilder = new TabFragment.Builder();
@@ -66,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //这里要进行数据还原
-
-        Log.i(TAG, "onCreate: ??");
 
         setContentView(R.layout.act_main);
 
@@ -85,13 +86,18 @@ public class MainActivity extends AppCompatActivity {
     private void initDrawerlayout() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_act_main);
         mNavigationView = (NavigationView) findViewById(R.id.nav_act_main);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mTbMain, R.string.app_name_title, R.string.app_name_title
+        );
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
     }
 
     private void initActionBar() {
         mTbMain = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(mTbMain);
         mActionBar = getSupportActionBar();
-        mActionBar.setTitle("");
+        mActionBar.setTitle(getString(R.string.app_name_title));
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -141,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mFabAdd = (FloatingActionButton) findViewById(R.id.fab_frag_main_add);
+        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.ctl_main_act);
+        mCollapsingToolbarLayout.setTitleEnabled(false);    //使标题不与TabLayout重复
     }
 
     private void initEvent() {
@@ -194,13 +202,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
     }
 
 }

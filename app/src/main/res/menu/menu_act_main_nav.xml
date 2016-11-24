@@ -17,16 +17,16 @@
 
     </item>
 
-    <item android:title="@string/app_name_title">
+    <item android:title="@string/setting">
         <menu>
 
             <item
-                android:icon="@drawable/ic_info"
-                android:title="@string/app_name_title" />
+                android:icon="@drawable/ic_menu"
+                android:title="@string/tab_name_setting" />
 
             <item
-                android:icon="@drawable/ic_info"
-                android:title="@string/app_name_title" />
+                android:icon="@drawable/ic_account"
+                android:title="@string/user_setting" />
 
         </menu>
     </item>
