@@ -8,4 +8,5 @@
     <string name="setting">设置</string>
     <string name="tab_name_setting">标签栏设置</string>
     <string name="user_setting">账户设置</string>
+    <string name="all_type">分类</string>
 </resources>

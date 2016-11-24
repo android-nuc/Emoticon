@@ -25,6 +25,9 @@ import com.juhezi.emoticon.R;
 import com.juhezi.emoticon.abs.AbsPresenter;
 import com.juhezi.emoticon.abs.AbsViewModel;
 import com.juhezi.emoticon.main.tabs.TabFragment;
+import com.juhezi.emoticon.main.tabs.allType.AllTypeFragment;
+import com.juhezi.emoticon.main.tabs.allType.AllTypePresenter;
+import com.juhezi.emoticon.main.tabs.allType.AllTypeViewModel;
 import com.juhezi.emoticon.main.tabs.dynamic.DynamicFragment;
 import com.juhezi.emoticon.main.tabs.dynamic.DynamicPresenter;
 import com.juhezi.emoticon.main.tabs.dynamic.DynamicViewModel;
@@ -68,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //这里要进行数据还原
-
         setContentView(R.layout.act_main);
 
         initActionBar();
@@ -109,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
     private void initTabLayout() {
         mTabLayout = (TabLayout) findViewById(R.id.tl_act_main_tabs);
         mViewPager = (ViewPager) findViewById(R.id.vp_act_main);
+
+        addTab(this, getString(R.string.all_type),
+                AllTypeFragment.class,
+                AllTypePresenter.class,
+                AllTypeViewModel.class);
+
         addTab(this, getString(R.string.pretend_strong),
                 PretendFragment.class,
                 PretendPresenter.class,
@@ -125,18 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 FightFragment.class,
                 FightPresenter.class,
                 FightViewModel.class);
-        addTab(this, "刘看山",
-                DynamicFragment.class,
-                DynamicPresenter.class,
-                DynamicViewModel.class);
-        addTab(this, "刘看山1",
-                DynamicFragment.class,
-                DynamicPresenter.class,
-                DynamicViewModel.class);
-        addTab(this, "刘看山2",
-                DynamicFragment.class,
-                DynamicPresenter.class,
-                DynamicViewModel.class);
 
         mAdapter = new VPTLAdapter(new ArrayList<TabFragment>(
                 TabFragment.Builder.getFragmentPool().values()),
@@ -155,13 +150,12 @@ public class MainActivity extends AppCompatActivity {
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TabFragment fragment = addTab(MainActivity.this, "Hello",
+                /*TabFragment fragment = addTab(MainActivity.this, "Hello",
                         DynamicFragment.class,
                         DynamicPresenter.class,
                         DynamicViewModel.class);
                 mAdapter.setFragments(new ArrayList<TabFragment>(
-                        TabFragment.Builder.getFragmentPool().values()));
-
+                        TabFragment.Builder.getFragmentPool().values()));*/
             }
         });
     }
