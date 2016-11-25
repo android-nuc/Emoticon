@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="人脸表情">
+        <menu>
+
+            <item
+                android:title="金馆长" />
+
+            <item
+                android:title="张学友" />
+
+            <item
+                android:title="姚明" />
+
+            <item
+                android:title="香菜" />
+
+        </menu>
+
+
+    </item>
+
+</menu>

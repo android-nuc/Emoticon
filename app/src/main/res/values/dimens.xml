@@ -5,4 +5,7 @@
     <dimen name="act_main_title_size">20sp</dimen>
     <dimen name="img_act_main_more_tabs_size">30dp</dimen>
     <dimen name="act_main_app_bar_layout_height">256dp</dimen>
+    <dimen name="item_all_type_margin">8dp</dimen>
+    <dimen name="item_all_type_margin_top">4dp</dimen>
+    <dimen name="item_all_type_margin_bottom">4dp</dimen>
 </resources>
