@@ -1,6 +1,7 @@
 package com.juhezi.emoticon.main.tabs.allType
 
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,6 +34,7 @@ class AllTypeAdapter : RecyclerView.Adapter<AllTypeAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mNav?.menu?.clear()
         holder.mNav?.inflateMenu(typeMenus[position].resId)
+
     }
 
     override fun getItemCount(): Int {
@@ -42,9 +44,11 @@ class AllTypeAdapter : RecyclerView.Adapter<AllTypeAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var mNav: NavigationView? = null
+        var mCardView: CardView? = null
 
         init {
             mNav = itemView.findViewById(R.id.nav_item_all_type) as NavigationView
+            mCardView = itemView.findViewById(R.id.cv_item_all_type) as CardView
         }
 
     }

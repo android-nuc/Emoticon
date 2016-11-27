@@ -3,7 +3,6 @@ package com.juhezi.emoticon.main.tabs.allType;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -47,7 +46,6 @@ public class AllTypeFragment extends TabFragment implements AllTypeContract.View
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int spanCount = 2;
-
     private AllTypeAdapter mAdapter;
 
     @Nullable
@@ -58,9 +56,7 @@ public class AllTypeFragment extends TabFragment implements AllTypeContract.View
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.srl_frag_all_type);
         mSwipeRefreshLayout.setEnabled(false);
         initRecyclerView();
-
         initEvent();
-
         return rootView;
     }
 
@@ -71,7 +67,7 @@ public class AllTypeFragment extends TabFragment implements AllTypeContract.View
         mAdapter = new AllTypeAdapter();
         mRecyclerView.setAdapter(mAdapter);
         ArrayList<TypeMenu> list = new ArrayList<>();
-        TypeMenu typeMenu1 = new TypeMenu(R.menu.menu_test);
+        TypeMenu typeMenu1 = new TypeMenu(R.menu.menu_perfacet);
         TypeMenu typeMenu2 = new TypeMenu(R.menu.menu_act_main_nav);
 
         for (int i = 0; i < 10; i++) {

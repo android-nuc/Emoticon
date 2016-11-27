@@ -21,10 +21,12 @@
         <menu>
 
             <item
+                android:id="@+id/item_menu_main_nav_tab_setting"
                 android:icon="@drawable/ic_menu"
                 android:title="@string/tab_name_setting" />
 
             <item
+                android:id="@+id/item_menu_main_nav_account_setting"
                 android:icon="@drawable/ic_account"
                 android:title="@string/user_setting" />
 
