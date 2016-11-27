@@ -2,6 +2,7 @@ package com.juhezi.emoticon.main.tabs.allType
 
 import android.support.design.widget.NavigationView
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import java.util.*
  * Created by qiao1 on 2016/11/25.
  */
 class AllTypeAdapter : RecyclerView.Adapter<AllTypeAdapter.ViewHolder>() {
+
+    private var TAG = "AllTypeAdapter"
 
     var typeMenus = ArrayList<TypeMenu>()
         set(value) {
@@ -28,6 +31,7 @@ class AllTypeAdapter : RecyclerView.Adapter<AllTypeAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.mNav?.menu?.clear()
         holder.mNav?.inflateMenu(typeMenus[position].resId)
     }
 

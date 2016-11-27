@@ -71,13 +71,10 @@ public class AllTypeFragment extends TabFragment implements AllTypeContract.View
         mAdapter = new AllTypeAdapter();
         mRecyclerView.setAdapter(mAdapter);
         ArrayList<TypeMenu> list = new ArrayList<>();
-        TypeMenu typeMenu1 = new TypeMenu();
-        typeMenu1.setResId(R.menu.menu_test);
+        TypeMenu typeMenu1 = new TypeMenu(R.menu.menu_test);
+        TypeMenu typeMenu2 = new TypeMenu(R.menu.menu_act_main_nav);
 
-        TypeMenu typeMenu2 = new TypeMenu();
-        typeMenu2.setResId(R.menu.menu_act_main_nav);
-
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             list.add(typeMenu1);
             list.add(typeMenu2);
         }
